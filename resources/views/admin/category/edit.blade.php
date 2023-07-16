@@ -3,10 +3,10 @@
 @section('content')
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Category</h1>
+        <h1 class="h3 mb-0 text-gray-800">Edit Category</h1>
     </div>
     <div class="card" style="margin: 0px auto; width: 30rem; padding: 40px;">
-        <form method="post" action="{{url('/categories/store')}}">
+        <form method="POST" action="{{url('/categories/update')}}/{{$category->id}}">
             @csrf
             <div class="form-group">
                 <label for="inputCode">Code</label>
@@ -15,6 +15,7 @@
                     class="form-control"
                     id="code"
                     name="code"
+                    value="{{$category->code}}"
                     placeholder="Code"
                 >
             </div>
@@ -25,6 +26,7 @@
                     class="form-control"
                     id="inputName"
                     name="name"
+                    value="{{$category->name}}"
                     placeholder="Name"
                 >
             </div>

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
-use App\Models\Category;
 
-class CategoryController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('admin.category.index', ['categories' => $categories]);
+        $posts = Post::all();
+        return view('admin.post.index', ['posts' => $posts]);
     }
 
     /**
@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        //
     }
 
     /**
@@ -36,16 +36,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $code = $request->code;
-        $name = $request->name;
-
-        $cat = new Category();
-
-        $cat->code = $code;
-        $cat->name = $name;
-        $cat->save();
-
-        return redirect('categories');
+        //
     }
 
     /**
@@ -67,9 +58,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-
-        return view('admin.category.edit', ['category' => $category]);
+        //
     }
 
     /**
@@ -81,13 +70,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = Category::find($id);
-
-        $category->code = $request->code;
-        $category->name = $request->name;
-        $category->save();
-
-        return redirect('categories');
+        //
     }
 
     /**
@@ -98,9 +81,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
-        $category->delete();
-
-        return redirect('categories');
+        //
     }
 }
