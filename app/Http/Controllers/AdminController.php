@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     function index() {
-        return view('admin.index');
+        return redirect('/categories');
     }
 }
