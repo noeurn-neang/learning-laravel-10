@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\Category;
 
 class PostController extends Controller
 {
@@ -12,10 +13,20 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::all();
-        return view('admin.post.index', ['posts' => $posts]);
+        $queryString = $request->queryString;
+        $perPage = 2;
+        $posts = Post::when($queryString != null, function($query) use ($queryString) {
+            return $query
+                ->where('title', 'like', '%'.$queryString.'%')
+                ->orWhere('description', 'like', '%'.$queryString.'%');
+        })->paginate($perPage);
+
+        return view('admin.post.index', [
+            'posts' => $posts, 
+            'queryString' => $queryString
+        ]);
     }
 
     /**
@@ -25,7 +36,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('admin.post.create', ['categories' => $categories]);
     }
 
     /**
@@ -36,7 +48,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $title = $request->title;
+        $description = $request->description;
+        $categoryId = $request->categoryId;
+        $imageUrl = $request->imageUrl;
+
+        $post = new Post();
+        $post->title = $title;
+        $post->description = $description;
+        $post->category_id = $categoryId;
+        $post->imageUrl = $imageUrl;
+        $post->save();
+
+        return redirect('posts');
     }
 
     /**

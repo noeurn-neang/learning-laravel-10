@@ -46,6 +46,10 @@ Route::group(['middleware' => 'auth'], function () {
   // Post
   Route::group(['prefix' => 'posts'], function() {
     Route::get('/', [PostController::class, 'index']);
+
+    // Create
+    Route::get('/create', [PostController::class, 'create'])->name('create-post');
+    Route::post('/store', [PostController::class, 'store'])->name('store-post');
   });
 
   Route::get('/logout', [AuthController::class, 'logout']);
