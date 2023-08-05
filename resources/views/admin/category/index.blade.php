@@ -11,6 +11,7 @@
         <tr>
           <th scope="col">Code</th>
           <th scope="col">Name</th>
+          <th scope="col">Count Posts</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
@@ -19,6 +20,13 @@
             <tr>
                 <td>{{$cat->code}}</td>
                 <td>{{$cat->name}}</td>
+                <td>
+                  <ul>
+                  @foreach($cat->posts as $post)
+                    <li>{{$post->title}}</li>
+                  @endforeach
+                  </ul>
+                </td>
                 <td colspan="2">
                     <a href="/categories/edit/{{$cat->id}}" class="btn btn-primary">Edit</a>
                     <a href="/categories/delete/{{$cat->id}}" class="btn btn-danger" >Delete</a>
